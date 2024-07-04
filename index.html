@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #2c3e50;
+            margin: 0;
+			padding: 0;
+            flex-direction: column;
+            font-family: 'Arial', sans-serif;
+            font-size: 2em;
+        }
+
+		h1 {
+			font-size: 20vmin;
+			padding: 0;
+			margin: 0;
+		}
+
+		p {
+			padding: 0;
+			margin: 5px;
+		}
+
+		.claim {
+			font-family: serif;
+		}
+
+        input, button {
+            font-family: 'Arial', sans-serif;
+            font-size: 1em;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #007BFF;
+        }
+
+        input {
+            width: calc(100% - 44px); /* Adjust to match the button width */
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #f0f0f0;
+        }
+
+        button:focus {
+            border-color: #007BFF;
+		}
+
+	    .radio-container {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            border-left: none;
+            border-radius: 0;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+
+        .radio-container input[type="radio"] {
+            appearance: none;
+            margin: 0 10px 0 0;
+            width: 20px;
+            height: 20px;
+            outline: none;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .radio-container input[type="radio"]:checked::before {
+            content: '';
+            display: block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #007BFF;
+            position: absolute;
+            top: 4px;
+            left: 4px;
+        }
+
+        .radio-container input[type="radio"]:focus {
+        }
+
+		.menu {
+			padding: 20px;
+		}
+
+        .input-container {
+            display: flex;
+            align-items: center;
+        }
+
+		.radiobutton {
+			margin: 10px;
+		}
+
+        .crystal-ball {
+			    width: 50vmin;
+    aspect-ratio: 1 / 1; /* Maintain a 1:1 aspect ratio */
+    max-width: 300px;
+    max-height: 300px;
+            background: radial-gradient(circle at center, #ffffff, #add8e6);
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+			margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .fog {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0) 70%);
+            animation: fadeOutFog 5s forwards, moveFog 5s infinite linear;
+        }
+
+        @keyframes fadeOutFog {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        @keyframes moveFog {
+            0% { transform: translate(-50%, -50%); }
+            100% { transform: translate(50%, 50%); }
+        }
+
+        .number {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 5vmin;
+            color: #2c3e50;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+
+        .number.fade-in {
+            opacity: 1;
+        }
+
+        .number.fade-out {
+            opacity: 0;
+        }
+
+        .sparkles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            fill: yellow;
+            opacity: 0;
+            animation: sparkle 1.5s infinite;
+        }
+
+        @keyframes sparkle {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+	<h1>⅀⥌Ƭ|⩋△τ○Ɍ</h1>
+	<p>your <em class="claim">AI</em>gile solution</p>
+    <div class="crystal-ball">
+        <div class="fog"></div>
+        <div class="number fade-in" id="number"></div>
+        <div class="sparkles" id="sparkles"></div>
+    </div>
+	<div class="input-container">
+		<input type="text" id="numberInput" placeholder="Describe your issue" />
+		<button onclick="changeNumber()">Estimate</button>
+	</div>
+	<div class="menu input-container">
+		Estimate&nbsp;in:
+		<div class="radio-container">
+			<input type="radio" class="radiobutton" id="hours" name="esttype" value="hours">
+			<label for="hours">hours</label>
+		</div>
+		<div class="radio-container">
+			<input type="radio" class="radiobutton" d="storypoints" name="esttype" value="storypoints" checked>
+			<label for="storypoints">storypoints</label>
+		</div>
+		<div class="radio-container">
+			<input type="radio" class="radiobutton" id="mandays" name="esttype" value="mandays">
+			<label for="mandays">mandays</label>
+		</div>
+	</div>
+
+    <script>
+        let currentNumber = 7;
+        const numberElement = document.getElementById('number');
+        const numberInput = document.getElementById('numberInput');
+        const sparklesContainer = document.getElementById('sparkles');
+
+        function createSparkle() {
+            const sparkle = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            sparkle.classList.add('sparkle');
+            sparkle.setAttribute('viewBox', '0 0 24 24');
+            sparkle.setAttribute('width', '24');
+            sparkle.setAttribute('height', '24');
+            sparkle.style.top = `${Math.random() * 100}%`;
+            sparkle.style.left = `${Math.random() * 100}%`;
+            sparkle.style.animation = `sparkle 1.5s ${Math.random() * 1.5}s infinite`;
+
+            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            path.setAttribute('d', 'M12 0 L15 8 L24 8 L17 14 L19 24 L12 18 L5 24 L7 14 L0 8 L9 8 Z');
+            sparkle.appendChild(path);
+
+            sparklesContainer.appendChild(sparkle);
+
+            setTimeout(() => {
+                sparklesContainer.removeChild(sparkle);
+            }, 1500);
+        }
+
+        function generateSparkles() {
+            for (let i = 0; i < 20; i++) {
+                setTimeout(createSparkle, Math.random() * 1500);
+            }
+        }
+
+        function changeNumber() {
+            numberElement.classList.remove('fade-in');
+            numberElement.classList.add('fade-out');
+
+            numberElement.addEventListener('transitionend', updateNumber, { once: true });
+        }
+
+        function updateNumber() {
+            const newNumber = Math.floor(Math.random() * 13);
+            currentNumber = newNumber;
+            numberElement.textContent = currentNumber;
+            numberElement.classList.remove('fade-out');
+            numberElement.classList.add('fade-in');
+            generateSparkles();
+        }
+
+        generateSparkles();
+    </script>
+</body>
+</html>
+
